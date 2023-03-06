@@ -1,0 +1,25 @@
+name: Update Docker Hub
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "README.md"
+      - "sh/generate-dockerhub-readme.sh"
+
+jobs:
+  update-dockerhub:
+    name: Update Docker Hub
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - name: Run shell script
+        run: sh/generate-dockerhub-readme.sh
+      - name: Update Docker Hub readme and description
+        uses: peter-evans/dockerhub-description@v3.2.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: jbergstroem/mariadb-alpine
+          readme-filepath: dockerhub.md
+          short-description: ${{ github.event.repository.description }}

@@ -1,30 +1,33 @@
-FROM alpine:3.16
+FROM alpine:3.17.2
+
+ARG BUILD_DATE
+ARG BUILD_REF
+ARG BUILD_VERSION
+ARG APK_VERSION="10.6.12-r0"
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
-ARG BUILD_DATE
-ARG VCS_REF
-
-LABEL org.opencontainers.image.created=$BUILD_DATE \
-  org.opencontainers.image.title="mariadb-alpine" \
-  org.opencontainers.image.description="A MariaDB container suitable for development" \
+LABEL \
   org.opencontainers.image.authors="Johan Bergström <bugs@bergstroem.nu>" \
-  org.opencontainers.image.revision=$VCS_REF \
+  org.opencontainers.image.created="$BUILD_DATE" \
+  org.opencontainers.image.description="A tiny MariaDB container" \
+  org.opencontainers.image.licenses="MIT" \
+  org.opencontainers.image.revision="$BUILD_REF" \
   org.opencontainers.image.source="https://github.com/jbergstroem/mariadb-alpine" \
+  org.opencontainers.image.title="jbergstroem/mariadb-alpine" \
   org.opencontainers.image.url="https://github.com/jbergstroem/mariadb-alpine" \
-  org.opencontainers.image.schema-version="1.0.0-rc.1" \
-  org.opencontainers.image.license="MIT"
+  org.opencontainers.image.vendor="Johan Bergström" \
+  org.opencontainers.image.version="$BUILD_VERSION"
 
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]
 
 RUN \
-  apk add --no-cache mariadb=10.6.8-r0 && \
+  apk add --no-cache mariadb=${APK_VERSION} mariadb-client=${APK_VERSION} && \
   TO_KEEP=$(echo " \
     etc/ssl/certs/ca-certificates.crt$ \
-    usr/bin/mariadbd$ \
     usr/bin/mariadb$ \
+    usr/bin/mariadbd$ \
     usr/bin/getconf$ \
     usr/bin/getent$ \
-    usr/bin/my_print_defaults$ \
     usr/bin/mariadb-install-db$ \
     usr/share/mariadb/charsets \
     usr/share/mariadb/english \
@@ -35,7 +38,7 @@ RUN \
     usr/share/mariadb/mysql_sys_schema.sql$ \
     usr/share/mariadb/fill_help_tables.sql$" | \
     tr -d " \t\n\r" | sed -e 's/usr/|usr/g' -e 's/^.//') && \
-  INSTALLED=$(apk info -q -L mariadb-common mariadb linux-pam ca-certificates | grep "\S") && \
+  INSTALLED=$(apk info -q -L mariadb-common mariadb mariadb-client linux-pam ca-certificates | grep "\S") && \
   for path in $(echo "${INSTALLED}" | grep -v -E "${TO_KEEP}"); do \
     eval rm -rf "${path}"; \
   done && \
@@ -47,8 +50,10 @@ RUN \
   mkdir /run/mysqld && \
   chown -R mysql:mysql /etc/my.cnf.d/ /run/mysqld /usr/share/mariadb/mysql_system_tables_data.sql
 
-# The one installed by MariaDB was removed in the clean step above due to its large footprint
+# The ones installed by MariaDB was removed in the clean step above due to its large footprint
+# my_print_defaults should cover 95% of cases since it doesn't properly do recursion
 COPY sh/resolveip.sh /usr/bin/resolveip
+COPY sh/my_print_defaults.sh /usr/bin/my_print_defaults
 COPY sh/run.sh /run.sh
 # switch to non-root user
 USER mysql

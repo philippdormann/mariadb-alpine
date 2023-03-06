@@ -1,0 +1,71 @@
+name: Lint
+on:
+  pull_request:
+
+jobs:
+  validate-renovate-config:
+    name: Validate renovate config
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - name: validate
+        uses: rinchsan/renovate-config-validator@v0.0.12
+        with:
+          pattern: ".github/renovate.json"
+  shellcheck:
+    runs-on: ubuntu-22.04
+    name: Shellcheck
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - name: Install Shellcheck
+        env:
+          version: "0.9.0"
+        run: curl -Ls "https://github.com/koalaman/shellcheck/releases/download/v${{ env.version }}/shellcheck-v${{ env.version }}.linux.x86_64.tar.xz" | sudo tar -x -J --wildcards --strip-components=1 -C /usr/local/bin "shellcheck*/shellcheck"
+      - name: Verify shell scripts
+        run: |
+          echo "::add-matcher::.github/matcher-shellcheck.json"
+          shellcheck -x -f gcc -S warning sh/*.sh test/*.{sh,bash}
+  hadolint:
+    runs-on: ubuntu-22.04
+    name: Hadolint
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: jbergstroem/hadolint-gh-action@v1.11.0
+        with:
+          error_level: 2
+  actionlint:
+    name: Actionlint
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - name: Install Actionlint
+        env:
+          version: "1.6.23"
+        run: curl -Ls "https://github.com/rhysd/actionlint/releases/download/v${{ env.version }}/actionlint_${{ env.version }}_linux_amd64.tar.gz" | sudo tar -x -z -C /usr/local/bin actionlint
+      - name: Run Actionlint
+        run: |
+          echo "::add-matcher::.github/matcher-actionlint.json"
+          actionlint -color
+  prettier:
+    runs-on: ubuntu-22.04
+    name: Prettier
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - uses: actions/setup-node@v3.6.0
+        with:
+          node-version: "18.11.0"
+      - name: Install prettier
+        run: npm install -g prettier
+      - name: Run prettier
+        run: prettier -c .
+  shfmt:
+    name: Shfmt
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3.3.0
+      - name: Install shfmt
+        env:
+          version: "3.6.0"
+        run: curl -Ls -o shfmt "https://github.com/mvdan/sh/releases/download/v${{ env.version }}/shfmt_v${{ env.version }}_linux_amd64" && chmod +x shfmt && sudo mv shfmt /usr/local/bin
+      - name: Lint shell scripts
+        run: shfmt -i 2 -d sh/*.sh test/*.sh
