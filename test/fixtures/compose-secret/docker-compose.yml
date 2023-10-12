@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   db:
-    image: jbergstroem/mariadb-alpine:${VERSION:-latest}
+    image: philippdormann/mariadb-alpine:${VERSION:-latest}
     container_name: mariadb-test-compose
     environment:
       MYSQL_DATABASE: "db"

@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 set -euo pipefail
 
-IMAGE=${IMAGE:-jbergstroem/mariadb-alpine}
+IMAGE=${IMAGE:-philippdormann/mariadb-alpine}
 SHORT_SHA=$(git rev-parse --short HEAD)
 DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 MARIADB_VERSION="$(sed -rn 's/^ARG APK_VERSION=\"([0-9]+\.[0-9]+\.[0-9]+).*\"$/\1/p' Dockerfile)"

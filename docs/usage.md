@@ -4,7 +4,7 @@
 
 ```shell
 $ docker run -it --rm -p 3306:3306 --name=mariadb \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 ### Disable InnoDB (faster startup)
@@ -12,7 +12,7 @@ $ docker run -it --rm -p 3306:3306 --name=mariadb \
 ```shell
 $ docker run -it --rm --name=mariadb \
     -e SKIP_INNODB=yes \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 ### Create a database with a user/password to access it
@@ -22,7 +22,7 @@ $ docker run -it --rm --name=mariadb \
     -e MYSQL_USER=foo \
     -e MYSQL_DATABASE=bar \
     -e MYSQL_PASSWORD=baz \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 ### Set a root password
@@ -30,7 +30,7 @@ $ docker run -it --rm --name=mariadb \
 ```shell
 $ docker run -it --rm --name=mariadb \
     -e MYSQL_ROOT_PASSWORD=secret \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 ### Use a volume to persist your storage across restarts
@@ -40,7 +40,7 @@ $ docker volume create db
 db
 $ docker run -it --rm --name=mariadb \
     -v db:/var/lib/mysql \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 ### Use a volume and a different port (3307) to access the container
@@ -51,7 +51,7 @@ db
 $ docker run -it --rm --name=mariadb \
     -v db:/var/lib/mysql \
     -p 3307:3306 \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 ### Use it as part of a docker-compose orchestration
@@ -61,7 +61,7 @@ version: "3.9"
 
 services:
   db:
-    image: jbergstroem/mariadb-alpine:latest
+    image: philippdormann/mariadb-alpine:latest
     restart: always
     environment:
       MYSQL_DATABASE: "db"
@@ -92,7 +92,7 @@ version: "3.9"
 
 services:
   db:
-    image: jbergstroem/mariadb-alpine:latest
+    image: philippdormann/mariadb-alpine:latest
     environment:
       MYSQL_DATABASE: "db"
       MYSQL_USER: "foo"
@@ -123,7 +123,7 @@ The import only needs to be run once since the data persists in the mysql databa
 ```shell
 $ docker network create db
 33a220c8af110295accde1df7157de7e665e7852d25ac2e9d80a7ca12625619b
-$ docker run --network db --name db -d -e SKIP_INNODB=1 -p 3306:3306 jbergstroem/mariadb-alpine
+$ docker run --network db --name db -d -e SKIP_INNODB=1 -p 3306:3306 philippdormann/mariadb-alpine
 733de227b9a7b54039e13be922e8c7f13e509665377e402db9d56fd2f86415b3
 $ docker run -it alpine
 / # apk add --no-cache -q mariadb mariadb-client tzdata

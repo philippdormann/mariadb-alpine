@@ -35,7 +35,7 @@ jobs:
         shell: bash
         if: ${{ ! inputs.override }}
         env:
-          TAG_URL: "https://hub.docker.com/v2/repositories/jbergstroem/mariadb-alpine/tags?page_size=100"
+          TAG_URL: "https://hub.docker.com/v2/repositories/philippdormann/mariadb-alpine/tags?page_size=100"
         run: |
           [[ $(git tag -l "${{ steps.extract.outputs.tag }}") || $(curl -L -s "${{ env.TAG_URL }}" | jq -r '.results[] | select(.name=="${{ steps.extract.outputs.tag }}")') ]] && \
           echo "Tag already exists. Quitting." && exit 1 || exit 0
@@ -53,7 +53,7 @@ jobs:
       - test
     env:
       platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/386,linux/s390x,linux/ppc64le
-      image: jbergstroem/mariadb-alpine
+      image: philippdormann/mariadb-alpine
       ref_url: ${{ github.api_url }}/repos/${{ github.repository }}/git/refs
     steps:
       - uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0

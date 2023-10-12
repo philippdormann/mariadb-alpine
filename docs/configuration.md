@@ -7,7 +7,7 @@ Pass any of below as you would other environment variable to a container (below 
 ```shell
 $ docker run -it --rm --name=mariadb \
     -e MYSQL_DATABASE=mydatabase \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 | Variable                | Description                                                                                                                                   |
@@ -29,7 +29,7 @@ Note: If you mount your own configs, defaults and custom logic like `SKIP_INNODB
 ```shell
 $ docker run -it --rm --name=mariadb \
     -v $(pwd)/config/my.cnf:/etc/my.cnf.d/my.cnf:ro \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 ## Executing custom sql on startup
@@ -41,7 +41,7 @@ $ mkdir init && echo "create database mydatabase;" > init/mydatabase.sql
 $ echo "#\!/bin/sh\necho Hello from script" > init/custom.sh
 $ docker volume create db
 db
-$ docker run -it --rm -e SKIP_INNODB=1 -v db:/var/lib/mysql -v $(pwd)/init:/docker-entrypoint-initdb.d jbergstroem/mariadb-alpine:latest
+$ docker run -it --rm -e SKIP_INNODB=1 -v db:/var/lib/mysql -v $(pwd)/init:/docker-entrypoint-initdb.d philippdormann/mariadb-alpine:latest
 init: installing mysql client
 init: updating system tables
 init: executing /docker-entrypoint-initdb.d/custom.sh

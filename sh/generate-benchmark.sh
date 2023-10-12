@@ -11,7 +11,7 @@ declare -A images=(
   ["bitnami/mariadb"]="bitnami/mariadb"
   ["linuxserver/mariadb"]="linuxserver/mariadb"
   ["clearlinux/mariadb"]="clearlinux/mariadb"
-  ["**jbergstroem/mariadb-alpine**"]="jbergstroem/mariadb-alpine"
+  ["**philippdormann/mariadb-alpine**"]="philippdormann/mariadb-alpine"
 )
 
 for image in "${!images[@]}"; do

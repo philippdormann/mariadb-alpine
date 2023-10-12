@@ -20,6 +20,6 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          repository: jbergstroem/mariadb-alpine
+          repository: philippdormann/mariadb-alpine
           readme-filepath: dockerhub.md
           short-description: ${{ github.event.repository.description }}

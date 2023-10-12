@@ -99,7 +99,7 @@ if [ -z "$(ls -A /var/lib/mysql/ 2>/dev/null)" ]; then
 fi
 
 # make sure directory permissions are correct before starting up
-# https://github.com/jbergstroem/mariadb-alpine/issues/54
+# https://github.com/philippdormann/mariadb-alpine/issues/54
 chown -R mysql:mysql /var/lib/mysql
 
 eval exec /usr/bin/mariadbd "${MARIADBD_OPTS}"

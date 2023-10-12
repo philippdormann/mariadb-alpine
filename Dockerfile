@@ -1,21 +1,20 @@
-FROM alpine:3.18.3
+FROM alpine:3.18
 
 ARG BUILD_DATE
 ARG BUILD_REF
 ARG BUILD_VERSION
-ARG APK_VERSION="10.11.4-r0"
+ARG APK_VERSION="10.11.5-r3"
 
 # https://github.com/opencontainers/image-spec/blob/master/annotations.md
 LABEL \
-  org.opencontainers.image.authors="Johan Bergström <bugs@bergstroem.nu>" \
   org.opencontainers.image.created="$BUILD_DATE" \
   org.opencontainers.image.description="A tiny MariaDB container" \
   org.opencontainers.image.licenses="MIT" \
   org.opencontainers.image.revision="$BUILD_REF" \
-  org.opencontainers.image.source="https://github.com/jbergstroem/mariadb-alpine" \
-  org.opencontainers.image.title="jbergstroem/mariadb-alpine" \
-  org.opencontainers.image.url="https://github.com/jbergstroem/mariadb-alpine" \
-  org.opencontainers.image.vendor="Johan Bergström" \
+  org.opencontainers.image.source="https://github.com/philippdormann/mariadb-alpine" \
+  org.opencontainers.image.title="philippdormann/mariadb-alpine" \
+  org.opencontainers.image.url="https://github.com/philippdormann/mariadb-alpine" \
+  org.opencontainers.image.vendor="Philipp Dormann" \
   org.opencontainers.image.version="$BUILD_VERSION"
 
 SHELL ["/bin/ash", "-euo", "pipefail", "-c"]

@@ -3,12 +3,12 @@
 
 set -euo pipefail
 
-IMAGE=${IMAGE:-jbergstroem/mariadb-alpine}
+IMAGE=${IMAGE:-philippdormann/mariadb-alpine}
 IMAGE_VERSION=${IMAGE_VERSION:-latest}
 TEST_PREFIX="mariadb-alpine-test"
 
 # shellcheck disable=SC2034
-CLIENT="docker run --rm --entrypoint mariadb jbergstroem/mariadb-alpine:${IMAGE_VERSION}"
+CLIENT="docker run --rm --entrypoint mariadb philippdormann/mariadb-alpine:${IMAGE_VERSION}"
 
 if ((BASH_VERSINFO[0] < 4)); then
   echo "You need Bash 4 or newer to run this test suite"

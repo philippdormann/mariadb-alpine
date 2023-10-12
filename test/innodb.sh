@@ -20,7 +20,7 @@ test_default_innodb_no_password() {
   stop "${name}"
 }
 
-# https://github.com/jbergstroem/mariadb-alpine/issues/1
+# https://github.com/philippdormann/mariadb-alpine/issues/1
 test_innodb_no_volume_issue_1() {
   local name="${suite_name}_no_volume"
   ip=$(create "${name}" false "")

@@ -2,7 +2,7 @@
 # shellcheck shell=bash
 set -euo pipefail
 
-URL="https://github.com/jbergstroem/mariadb-alpine"
+URL="https://github.com/philippdormann/mariadb-alpine"
 
 sed \
   -e '/href="#/d' \

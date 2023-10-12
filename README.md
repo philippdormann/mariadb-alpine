@@ -1,14 +1,14 @@
 <p align="center">
   <br>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/jbergstroem/mariadb-alpine/main/mariadb-alpine-light.svg">
-    <img width="480" alt="mariadb-alpine" src="https://raw.githubusercontent.com/jbergstroem/mariadb-alpine/main/mariadb-alpine.svg">
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/philippdormann/mariadb-alpine/main/mariadb-alpine-light.svg">
+    <img width="480" alt="mariadb-alpine" src="https://raw.githubusercontent.com/philippdormann/mariadb-alpine/main/mariadb-alpine.svg">
   </picture>
 </p>
 <p align="center">
-  <img src="https://img.shields.io/docker/v/jbergstroem/mariadb-alpine?style=flat&color=999&sort=semver">
-  <img src="https://img.shields.io/docker/image-size/jbergstroem/mariadb-alpine?style=flat&color=999&sort=semver">
-  <img src="https://img.shields.io/docker/pulls/jbergstroem/mariadb-alpine?style=flat&color=999&sort=semver">
+  <img src="https://img.shields.io/docker/v/philippdormann/mariadb-alpine?style=flat&color=999&sort=semver">
+  <img src="https://img.shields.io/docker/image-size/philippdormann/mariadb-alpine?style=flat&color=999&sort=semver">
+  <img src="https://img.shields.io/docker/pulls/philippdormann/mariadb-alpine?style=flat&color=999&sort=semver">
 </p>
 <p align="center">
   <a href="#a-tiny-mariadb-container">About</a> |
@@ -48,7 +48,7 @@ Licensed under [MIT][4].
 $ docker run -it --rm -p 3306:3306 \
     --name=mariadb \
     -e SKIP_INNODB=1 \
-    jbergstroem/mariadb-alpine
+    philippdormann/mariadb-alpine
 ```
 
 ## Next steps
@@ -61,5 +61,5 @@ $ docker run -it --rm -p 3306:3306 \
 
 [1]: https://mariadb.org
 [2]: https://alpinelinux.org
-[3]: https://github.com/jbergstroem/mariadb-alpine/issues
+[3]: https://github.com/philippdormann/mariadb-alpine/issues
 [4]: ./LICENSE

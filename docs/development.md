@@ -70,6 +70,6 @@ Note: `gh run` will tail any active job, which most likely only is the Release j
 [curl]: https://curl.se
 [jq]: https://stedolan.github.io/jq/
 [coreutils]: https://www.gnu.org/software/coreutils/
-[docker-hub]: https://hub.docker.com/r/jbergstroem/mariadb-alpine
+[docker-hub]: https://hub.docker.com/r/philippdormann/mariadb-alpine
 [github-actions]: https://github.com/features/actions
-[release-workflow]: https://github.com/jbergstroem/mariadb-alpine/actions/workflows/release.yml
+[release-workflow]: https://github.com/philippdormann/mariadb-alpine/actions/workflows/release.yml
